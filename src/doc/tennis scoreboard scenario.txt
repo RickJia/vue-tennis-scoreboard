@@ -1,0 +1,13 @@
+Scenario:
+
+game 
+
+  player id 
+  point : 15 30 40 deuce Ad.
+  win a point after Ad. will win the game.
+  the winner of the game should plus one of the currenct game match.
+  
+
+Ace win a point 
+Winner win a point
+Fault lose a point, opponent win a point
