@@ -5,10 +5,11 @@
       15
     </span>
     <div>
-      <button>Ace</button>
-      <button>Winner</button>
-      <button>Fault</button>
-      <button>Unforced Error</button>
+      <button @click="updateScore('Ace')">Ace</button>
+      <button @click="updateScore('Winner')">Winner</button>
+      <button @click="updateScore('Fault')">Fault</button>
+      <button @click="updateScore('Unforced Error')">Unforced Error</button>
+      <button @click="updateScore('Unforced Error')">Unforced Error</button>
     </div>
   </div>
 
@@ -27,23 +28,35 @@
 </template>
 
 <script>
+
 export default {
   name: 'GameBoard',
-
+  props: {
+    currentServerId: String
+  },
   data: function() {
     return {
-      statistics: [
-
-
-
+      game: [
         
       ]
-
-
     }
-  }
+  },
 
-
+  methods: {
+    updateScore(action) {
+      switch (action) {
+        case 'Ace':
+        case 'Winner':
+        case 'Fault':
+        case 'Unforced Error': {
+          const event = action;
+          const recordOfThePoint = {...this.currentServerId, event};
+          this.$emit('add:score', recordOfThePoint);
+          return;
+        }
+      }
+    }
+  },
 }
 </script>
 

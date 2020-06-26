@@ -3,7 +3,7 @@
     I am tennis scoreboard
     hello
   <MatchScore />
-  <GameBoard />
+  <GameBoard :currentServerId="'d'" @add:score="addScore"/>
   </div>
 </template>
 
@@ -17,6 +17,11 @@ export default {
   components: {
     MatchScore,
     GameBoard
+  },
+  methods: {
+    addScore(recordOfThePoint) {
+      console.log(recordOfThePoint);
+    }
   }
 }
 </script>
