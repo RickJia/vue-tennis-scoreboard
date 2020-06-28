@@ -1,6 +1,6 @@
 <template>
 <div class="board">
-  <div class="player" v-for="player in mathScoreOfPlayers" :key="player.name">
+  <div class="player" v-for="player in mathScoreOfPlayers" :key="player.id">
     <span class="name">{{player.name}}</span>
     <div class="scores">
       <span class="score" v-for="score in player.scoreOfSets" :key="score">{{ score }}</span>
@@ -12,27 +12,37 @@
 </template>
 
 <script>
-
 export default {
   name: 'MatchSwefcore',
-
+  created: function () {
+    this.currentServer();
+  },
   data: function() {
     return {
+      currentServerId: '1',
       mathScoreOfPlayers: [
         {
+          id: '1',
           name: 'P1',
           scoreOfSets: [0 , 0]
         },
         {
+          id: '2',
           name: 'P2',
-          scoreOfSets: [1, 0]
+          scoreOfSets: [0, 0]
         }
       ]
     }
   },
-}
-</script>
+  methods: {
+    currentServer() {
+      this.$emit('change:currentserver', this.currentServerId);
+    }
+  }
 
+}
+
+</script>
 
 <style scoped lang="stylus">
   .board
@@ -54,8 +64,4 @@ export default {
 
   .score
     margin-right 15px
-
-
-
-
 </style>

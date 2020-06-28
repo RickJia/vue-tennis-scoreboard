@@ -1,27 +1,20 @@
 <template>
 <div class="content">
-  <div class="game-group"> 
+  <div class="game-group" v-for="game in currentGame" :key="game.playerId"> 
     <span class="score">
-      15
+      {{game.playerId}}
+      {{game.point}}
     </span>
     <div>
-      <button @click="updateScore('Ace')">Ace</button>
-      <button @click="updateScore('Winner')">Winner</button>
-      <button @click="updateScore('Fault')">Fault</button>
-      <button @click="updateScore('Unforced Error')">Unforced Error</button>
-      <button @click="updateScore('Unforced Error')">Unforced Error</button>
-    </div>
-  </div>
-
-  <div class="game-group"> 
-    <span class="score">
-      15
-    </span>
-    <div>
-      <button>Ace</button>
-      <button>Winner</button>
-      <button>Fault</button>
-      <button>Unforced Error</button>
+      <div class="btn-group">
+        <button @click="updateScore('Ace', game.playerId)">Ace</button>
+        <button @click="updateScore('Winner', game.playerId)">Winner</button>
+        <button @click="updateScore('Opponent Unforced Error', game.playerId)">Opponent Unforced Error</button>
+      </div>
+      <div class="btn-group">
+        <button @click="updateScore('Double Fault', game.playerId)">Double Fault</button>
+        <button @click="updateScore('Unforced Error', game.playerId)">Unforced Error</button>
+      </div>
     </div>
   </div>
 </div>
@@ -32,30 +25,38 @@
 export default {
   name: 'GameBoard',
   props: {
-    currentServerId: String
+    currentServerId: String,
+    currentGame: Array,
+    players: Array,
   },
-  data: function() {
-    return {
-      game: [
-        
-      ]
-    }
-  },
-
   methods: {
-    updateScore(action) {
+    updateScore(action, playerId) {
       switch (action) {
         case 'Ace':
         case 'Winner':
-        case 'Fault':
+        case 'Opponent Unforced Error':
+        case 'Double Fault':
         case 'Unforced Error': {
           const event = action;
-          const recordOfThePoint = {...this.currentServerId, event};
+          const currentServerId = this.currentServerId;
+          const recordOfThePoint = {currentServerId, event, playerId};
+          this.addPoint(playerId);
           this.$emit('add:score', recordOfThePoint);
-          return;
+          return
         }
       }
+    },
+    addPoint(playerId) {
+      const pointEmun = [ 0, 15 , 30 , 40, 'Deuce', 'Ad.', 'Game'];
+
+
+      const player = this.currentGame.find(game => game.playerId === id);
+      const id = 
+
+      
+      
     }
+
   },
 }
 </script>
