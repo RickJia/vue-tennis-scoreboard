@@ -68,6 +68,7 @@ export default {
       console.log(recordOfThePoint);
     },
     updateMatch(match) {
+      console.log(match);
       this.match = JSON.parse(JSON.stringify(match));
     },
     addRecord(record) {

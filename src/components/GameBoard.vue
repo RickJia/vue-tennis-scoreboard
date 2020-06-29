@@ -49,7 +49,6 @@ export default {
           break;
         }
       }
-      console.log(record);
       this.updateMatch(record);
       this.$emit('add:record', record);
     },
@@ -128,7 +127,6 @@ export default {
     },
     updateMatch(record) {
       const winnerOfGame = record.pointStatics.points.find(gamePoint => gamePoint.point === 'Game');
-      console.log(winnerOfGame);
       if (winnerOfGame) {
         this.emitMatch(winnerOfGame);
         this.reset();
@@ -141,12 +139,27 @@ export default {
       const updatePlayerIndex = this.match.findIndex(player => player.id === winnerOfGame.playerId);
       this.match[updatePlayerIndex].sets[lastSet] = playerSet;
       this.chanageServer();
+      this.setNewSet();
       this.$emit('update:match', this.match);
     },
     chanageServer() {
       const nextServer = this.match.find(player => player.id !== this.currentServerId);
       this.currentServerId = nextServer.id;
       this.$emit('change:server', nextServer);
+    },
+    setNewSet() {
+      const lastSet = this.match[0].sets.length - 1; 
+      if (this.match[0].sets[lastSet] === 7 || this.match[1].sets[lastSet] === 7) {
+        this.match[0].sets.push(0);
+        this.match[1].sets.push(0); 
+        this.$emit('update:match', this.match);
+      }
+      if (this.match[0].sets[lastSet] === 6 && this.match[1].sets[lastSet] < 5 || 
+        this.match[1].sets[lastSet] === 6 && this.match[0].sets[lastSet]
+      ) {
+        this.match[0].sets.push(0);
+        this.match[1].sets.push(0);
+      }
     },
     reset() {
       this.currentGame.map(game => game.point = '0');
