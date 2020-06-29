@@ -2,12 +2,18 @@
   <div class="score-board">
     I am tennis scoreboard
     hello
-  <MatchScore @change:currentserver="changeServer"/>
+  <MatchScore 
+    :match="match"
+    :currentServerId="currentServerId"
+  />
   <GameBoard 
     :currentServerId="currentServerId"
-    :players="players"
+    :match="match"
     :currentGame="currentGame"
     @add:score="addScore"
+    @update:match="updateMatch"
+    @add:record="addRecord"
+    @change:server="changeServer"
   />
   </div>
 </template>
@@ -25,7 +31,7 @@ export default {
   },
   data: function() {
     return {
-      currentServerId: '',
+      currentServerId: '1',
       currentGame: [
         {
           playerId: '1',
@@ -36,11 +42,11 @@ export default {
           point: '0',
         },
       ],
-      players: [
+      match: [
         {
           id: '1',
           name: 'Tiffiny',
-          set: [
+          sets: [
             0
           ]
         },
@@ -53,30 +59,7 @@ export default {
         }
       ],
       matchStatistic: {
-        records: [
-          {
-            id: '1',
-            set: 1,
-            currentServerId: '1',
-            gameNumber: 1,
-            howtoWin: 'Un', 
-            pointWinId: 'playerId',
-            pointStatics: [  
-              {
-                playerId: '1',
-                score: 15
-              },
-              {
-                playerId: '2',
-                score: 15
-              }
-            ],
-           
-            pointDuration: '2020....'
-            
-          }
-        ]
-
+        records: []
       }
     }
   },
@@ -84,11 +67,16 @@ export default {
     addScore(recordOfThePoint) {
       console.log(recordOfThePoint);
     },
-    changeServer(id) {
-      this.currentServerId = id;  
-      console.log(id);
+    updateMatch(match) {
+      this.match = JSON.parse(JSON.stringify(match));
+    },
+    addRecord(record) {
+      this.matchStatistic.records.push(record);
+    },
+    changeServer(nextServer) {
+      this.currentServerId = nextServer.id;
+      console.log(this.currentServerId);
     }
-
   }
 }
 </script>

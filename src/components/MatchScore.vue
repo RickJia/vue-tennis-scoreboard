@@ -1,9 +1,15 @@
 <template>
 <div class="board">
-  <div class="player" v-for="player in mathScoreOfPlayers" :key="player.id">
-    <span class="name">{{player.name}}</span>
-    <div class="scores">
-      <span class="score" v-for="score in player.scoreOfSets" :key="score">{{ score }}</span>
+  <div class="player" v-for="player in match" :key="player.id">
+    <div class="serve">
+      <span v-if="player.id === currentServerId">dot</span> 
+      <span v-else class="empty-block"></span>
+    </div>
+    <div class="flex">
+      <span class="name">{{player.name}}</span>
+      <div class="scores">
+        <span class="score" v-for="game in player.sets" :key="game">{{ game }}</span>
+      </div>
     </div>
 
   </div>
@@ -14,34 +20,19 @@
 <script>
 export default {
   name: 'MatchSwefcore',
+  props: {
+    match: Array,
+    currentServerId: String
+  },
   created: function () {
     this.currentServer();
-  },
-  data: function() {
-    return {
-      currentServerId: '1',
-      mathScoreOfPlayers: [
-        {
-          id: '1',
-          name: 'P1',
-          scoreOfSets: [0 , 0]
-        },
-        {
-          id: '2',
-          name: 'P2',
-          scoreOfSets: [0, 0]
-        }
-      ]
-    }
   },
   methods: {
     currentServer() {
       this.$emit('change:currentserver', this.currentServerId);
     }
   }
-
 }
-
 </script>
 
 <style scoped lang="stylus">
@@ -64,4 +55,15 @@ export default {
 
   .score
     margin-right 15px
+
+  .empty-block
+    width 58.182px
+
+  .serve
+    margin-right 15px
+    width 70px
+  
+  .flex
+    display flex
+
 </style>

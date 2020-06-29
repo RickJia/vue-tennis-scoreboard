@@ -27,36 +27,130 @@ export default {
   props: {
     currentServerId: String,
     currentGame: Array,
-    players: Array,
+    match: Array,
+  },
+  created() {
+    console.log(this.currentGame);
   },
   methods: {
-    updateScore(action, playerId) {
-      switch (action) {
+    updateScore(howToWin) {
+      let record;
+      switch (howToWin) {
         case 'Ace':
         case 'Winner':
-        case 'Opponent Unforced Error':
+        case 'Opponent Unforced Error': {    
+          record = this.addPoint(this.currentServerId, howToWin);
+          break;
+        }
         case 'Double Fault':
-        case 'Unforced Error': {
-          const event = action;
-          const currentServerId = this.currentServerId;
-          const recordOfThePoint = {currentServerId, event, playerId};
-          this.addPoint(playerId);
-          this.$emit('add:score', recordOfThePoint);
-          return
+        case 'Unforced Error': {      
+          const game = this.currentGame.find(game => game.playerId !== this.currentServerId);
+          record = this.addPoint(game.playerId, howToWin);
+          break;
         }
       }
+      console.log(record);
+      this.updateMatch(record);
+      this.$emit('add:record', record);
     },
-    addPoint(playerId) {
-      const pointEmun = [ 0, 15 , 30 , 40, 'Deuce', 'Ad.', 'Game'];
+    addPoint(playerId, howToWin) {
+      const winPointPlayer = this.currentGame.find(game => game.playerId === playerId);
+      const notWinPointPlayer = this.currentGame.find(game => game.playerId !== playerId);
+      let result;
+      const lastSet = this.match[0].sets.length - 1;
+      if (this.match[0].sets[lastSet] === 6 && this.match[1].sets[lastSet] === 6) {
+        result = this.tieBreak(playerId, howToWin, winPointPlayer, notWinPointPlayer);
+      } else {  
+        result = this.normalGame(playerId, howToWin, winPointPlayer, notWinPointPlayer);
+      }
+      return this.getRecord(playerId, howToWin, result.winPointPlayer, result.notWinPointPlayer);
+    },
+    normalGame(playerId, howToWin, winPointPlayer, notWinPointPlayer) {
+      const pointEnum = [ '0', '15' , '30' , '40', 'Ad.', 'Game'];
+      const winPoint = pointEnum[pointEnum.indexOf(winPointPlayer.point) + 1]; 
+      winPointPlayer.point = winPoint;
+      if (winPointPlayer.point === 'Ad.' && notWinPointPlayer.point === 'Ad.') {
+        winPointPlayer.point = '40';
+        notWinPointPlayer.point = '40';
+      }
+      if (winPointPlayer.point === 'Ad.' && notWinPointPlayer.point !== '40') {
+        winPointPlayer.point = 'Game';
+      }
+      return { winPointPlayer, notWinPointPlayer };
+    },
+    tieBreak(playerId, howToWin, winPointPlayer, notWinPointPlayer) {
+      const winPoint = parseInt(winPointPlayer.point, 10);
+      const notWinpoint = parseInt(notWinPointPlayer.point, 10);
+      winPointPlayer.point = winPoint + 1;
+      if (winPointPlayer.point + notWinpoint === 1) {
+        this.chanageServer();
+      } else {
+        if ((winPointPlayer.point + notWinpoint - 1) % 2 === 0) {
+          this.chanageServer();
+        }
+      }
 
+      if (winPointPlayer.point > 6 && notWinPointPlayer.point < 6) {
+        winPointPlayer.point = 'Game';
+        this.chanageServer();
+      }
 
-      const player = this.currentGame.find(game => game.playerId === id);
-      const id = 
-
-      
-      
-    }
-
+      if (winPointPlayer.point > 5 && notWinPointPlayer.point > 5) {
+        if (winPointPlayer.point - notWinPointPlayer.point === 2) {
+          winPointPlayer.point = 'Game';
+          this.chanageServer();
+        }
+      }
+      return { winPointPlayer, notWinPointPlayer };
+    },
+    getRecord(playerId, howToWin, winPointPlayer, notWinPointPlayer) {
+      const len = this.match[0].sets.length;
+      const currentGamePlayer1 = this.match[0].sets[len - 1];
+      const currentGamePlayer2 = this.match[1].sets[len - 1];
+      const gameNumber = currentGamePlayer1 + currentGamePlayer2 + 1;
+      const pointWinnerId = playerId;
+      const set = this.match[0].sets.length;
+      const notwinPointPlayer = notWinPointPlayer;
+      const points = [
+        {
+          playerId: playerId,
+          point: winPointPlayer.point,
+        }, 
+        {
+          playerId: notwinPointPlayer.playerId,
+          point: notwinPointPlayer.point,
+        }
+      ]
+      const currentServerId = this.currentServerId;
+      const pointStatics = { howToWin, pointWinnerId, points};
+      const record = { set, currentServerId, gameNumber, pointStatics };
+      return record;
+    },
+    updateMatch(record) {
+      const winnerOfGame = record.pointStatics.points.find(gamePoint => gamePoint.point === 'Game');
+      console.log(winnerOfGame);
+      if (winnerOfGame) {
+        this.emitMatch(winnerOfGame);
+        this.reset();
+      }
+    },
+    emitMatch(winnerOfGame) {
+      let playerSet = this.match.find(player => player.id === winnerOfGame.playerId);
+      const lastSet = playerSet.sets.length - 1;
+      playerSet = playerSet.sets[playerSet.sets.length - 1] += 1;
+      const updatePlayerIndex = this.match.findIndex(player => player.id === winnerOfGame.playerId);
+      this.match[updatePlayerIndex].sets[lastSet] = playerSet;
+      this.chanageServer();
+      this.$emit('update:match', this.match);
+    },
+    chanageServer() {
+      const nextServer = this.match.find(player => player.id !== this.currentServerId);
+      this.currentServerId = nextServer.id;
+      this.$emit('change:server', nextServer);
+    },
+    reset() {
+      this.currentGame.map(game => game.point = '0');
+    },
   },
 }
 </script>
