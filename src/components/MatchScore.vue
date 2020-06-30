@@ -2,7 +2,7 @@
 <div class="board">
   <div class="player" v-for="player in match" :key="player.id">
     <div class="serve">
-      <i  v-if="player.id === currentServerId" class="icon-serve"></i>
+      <i v-if="player.id === currentServerId" class="icon-serve"></i>
       <span v-else class="empty-block"></span>
     </div>
     <div class="flex">

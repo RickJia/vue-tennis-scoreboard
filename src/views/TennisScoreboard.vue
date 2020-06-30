@@ -1,9 +1,11 @@
 <template>
   <div class="score-board">
-  <PlayForm 
+  <PlayForm
+    v-show="submitted === false"
     @new:players="addPlayers"
   />
   <MatchScore 
+    class="margin-bottom"
     :match="match"
     :currentServerId="currentServerId"
   />
@@ -34,6 +36,7 @@ export default {
   },
   data: function() {
     return {
+      submitted: false,
       currentServerId: '1',
       currentGame: [
         {
@@ -70,6 +73,7 @@ export default {
     addPlayers(players) {
       this.match[0].name = players.name1;
       this.match[1].name = players.name2;
+      this.submitted = true;
     },
     addScore(recordOfThePoint) {
       console.log(recordOfThePoint);
@@ -89,3 +93,9 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="stylus">
+  .margin-bottom
+    margin-bottom 65px
+
+</style>

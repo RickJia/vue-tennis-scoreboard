@@ -1,19 +1,31 @@
 <template>
 <div class="content">
-  <div class="game-group" v-for="game in currentGame" :key="game.playerId"> 
-    <span class="score">
-      {{game.playerId}}
-      {{game.point}}
-    </span>
+  <div class="game-group" v-for="(game, index) in currentGame" :key="game.playerId">
+    <div class="column">
+      <span class="player-name">{{match[index].name}}</span>
+      <span class="score">
+        {{game.point}}
+      </span>
+    </div>
     <div>
       <div class="btn-group">
-        <button @click="updateScore('Ace', game.playerId)">Ace</button>
-        <button @click="updateScore('Winner', game.playerId)">Winner</button>
-        <button @click="updateScore('Opponent Unforced Error', game.playerId)">Opponent Unforced Error</button>
+        <button class="add-point" :disabled="currentServerId !== game.playerId" 
+          @click="updateScore('Ace', game.playerId)">Ace
+        </button>
+        <button class="add-point" :disabled="currentServerId !== game.playerId" 
+          @click="updateScore('Winner', game.playerId)">Winner
+        </button>
+        <button class="add-point" :disabled="currentServerId !== game.playerId" 
+          @click="updateScore('Opponent Unforced Error', game.playerId)">Opponent Unforced Error
+        </button>
       </div>
       <div class="btn-group">
-        <button @click="updateScore('Double Fault', game.playerId)">Double Fault</button>
-        <button @click="updateScore('Unforced Error', game.playerId)">Unforced Error</button>
+        <button class="lose-point" :disabled="currentServerId !== game.playerId"
+          @click="updateScore('Double Fault', game.playerId)">Double Fault
+          </button>
+        <button class="lose-point" :disabled="currentServerId !== game.playerId"
+          @click="updateScore('Unforced Error', game.playerId)">Unforced Error
+        </button>
       </div>
     </div>
   </div>
@@ -177,5 +189,30 @@ export default {
   
   .game-group:nth-child(1)
     margin-right 15px
- 
+
+  button
+    height 35px
+    min-width 107px
+    margin-bottom 15px
+    margin-right 5px
+    background-color: grey
+    border-radius: 4px
+    border: 0;
+    color white
+    &:disabled
+      opacity 0.5
+  
+  .add-point
+    background-color #229954
+
+  .lose-point
+    background-color #C70039
+
+  .column
+    display flex
+    flex-direction column
+  
+  .player-name
+    font-size 30px
+    
 </style>
