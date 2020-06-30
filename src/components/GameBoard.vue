@@ -69,6 +69,7 @@ export default {
       const notWinPointPlayer = this.currentGame.find(game => game.playerId !== playerId);
       let result;
       const lastSet = this.match[0].sets.length - 1;
+      console.log(this.match);
       if (this.match[0].sets[lastSet] === 6 && this.match[1].sets[lastSet] === 6) {
         result = this.tieBreak(playerId, howToWin, winPointPlayer, notWinPointPlayer);
       } else {  
@@ -166,7 +167,7 @@ export default {
         this.$emit('update:match', this.match);
       }
       if (this.match[0].sets[lastSet] === 6 && this.match[1].sets[lastSet] < 5 || 
-        this.match[1].sets[lastSet] === 6 && this.match[0].sets[lastSet]
+        this.match[1].sets[lastSet] === 6 && this.match[0].sets[lastSet] < 5
       ) {
         this.match[0].sets.push(0);
         this.match[1].sets.push(0);

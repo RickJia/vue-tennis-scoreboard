@@ -31,7 +31,7 @@ export default {
   .board
     display flex
     flex-direction column
-    font-size 50px
+    font-size 35px
 
   .player 
     display flex
@@ -41,21 +41,29 @@ export default {
     text-overflow: ellipsis;
   
   .name
-    width 300px
     text-align left
+    flex 1
+    
+  .scores
+    display flex
 
   .score
+    display flex
+    align-items center
     margin-right 15px
 
   .empty-block
     width 58.182px
 
   .serve
-    width 70px
-    align-items: center;
-    display: flex;
+    width 50px
+    height 50px
+    align-items center
+    display flex
+    flex-basis: inherit;
   
   .flex
     display flex
+    flex-grow 1
 
 </style>
