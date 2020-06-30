@@ -2,7 +2,7 @@
 <div class="board">
   <div class="player" v-for="player in match" :key="player.id">
     <div class="serve">
-      <span v-if="player.id === currentServerId">dot</span> 
+      <i  v-if="player.id === currentServerId" class="icon-serve"></i>
       <span v-else class="empty-block"></span>
     </div>
     <div class="flex">
@@ -23,14 +23,6 @@ export default {
   props: {
     match: Array,
     currentServerId: String
-  },
-  created: function () {
-    this.currentServer();
-  },
-  methods: {
-    currentServer() {
-      this.$emit('change:currentserver', this.currentServerId);
-    }
   }
 }
 </script>
@@ -40,7 +32,6 @@ export default {
     display flex
     flex-direction column
     font-size 50px
-    padding 0 150px
 
   .player 
     display flex
@@ -60,8 +51,9 @@ export default {
     width 58.182px
 
   .serve
-    margin-right 15px
     width 70px
+    align-items: center;
+    display: flex;
   
   .flex
     display flex

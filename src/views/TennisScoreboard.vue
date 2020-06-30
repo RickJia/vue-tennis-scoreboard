@@ -1,7 +1,8 @@
 <template>
   <div class="score-board">
-    I am tennis scoreboard
-    hello
+  <PlayForm 
+    @new:players="addPlayers"
+  />
   <MatchScore 
     :match="match"
     :currentServerId="currentServerId"
@@ -22,12 +23,14 @@
 <script>
 import MatchScore from '@/components/MatchScore.vue'
 import GameBoard from '@/components/GameBoard.vue'
+import PlayForm from '@/components/PlayForm.vue'
 
 export default {
   name: 'TennisScoreboard',
   components: {
     MatchScore,
-    GameBoard
+    GameBoard,
+    PlayForm,
   },
   data: function() {
     return {
@@ -45,14 +48,14 @@ export default {
       match: [
         {
           id: '1',
-          name: 'Tiffiny',
+          name: '',
           sets: [
             0
           ]
         },
         {
           id: '2',
-          name: 'Rogerr',
+          name: '',
           sets: [
             0
           ]
@@ -64,6 +67,10 @@ export default {
     }
   },
   methods: {
+    addPlayers(players) {
+      this.match[0].name = players.name1;
+      this.match[1].name = players.name2;
+    },
     addScore(recordOfThePoint) {
       console.log(recordOfThePoint);
     },
@@ -73,6 +80,7 @@ export default {
     },
     addRecord(record) {
       this.matchStatistic.records.push(record);
+      console.log(this.matchStatistic);
     },
     changeServer(nextServer) {
       this.currentServerId = nextServer.id;

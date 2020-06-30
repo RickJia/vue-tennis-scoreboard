@@ -144,7 +144,6 @@ export default {
     },
     chanageServer() {
       const nextServer = this.match.find(player => player.id !== this.currentServerId);
-      this.currentServerId = nextServer.id;
       this.$emit('change:server', nextServer);
     },
     setNewSet() {

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import './global-style/style.css'
+import './global-style/icon.css'
 
 Vue.config.productionTip = false
 
