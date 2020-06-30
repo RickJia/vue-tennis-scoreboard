@@ -31,7 +31,7 @@ export default {
   .board
     display flex
     flex-direction column
-    font-size 35px
+    font-size 25px
 
   .player 
     display flex
@@ -56,8 +56,8 @@ export default {
     width 58.182px
 
   .serve
-    width 50px
-    height 50px
+    width 30px
+    height 30px
     align-items center
     display flex
     flex-basis: inherit;

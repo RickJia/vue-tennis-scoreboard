@@ -96,6 +96,6 @@ export default {
 
 <style scoped lang="stylus">
   .margin-bottom
-    margin-bottom 65px
+    margin-bottom 20px
 
 </style>

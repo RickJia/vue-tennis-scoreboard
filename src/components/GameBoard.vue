@@ -2,8 +2,8 @@
 <div class="content">
   <div class="game-group" v-for="(game, index) in currentGame" :key="game.playerId">
     <div class="column">
-      <span class="player-name">{{match[index].name}}</span>
-      <span class="score">
+      <span class="player-name" :class="[{'current-server':game.playerId === currentServerId}]">{{match[index].name}}</span>
+      <span class="score" :class="[{'current-server':game.playerId === currentServerId}]">
         {{game.point}}
       </span>
     </div>
@@ -215,5 +215,8 @@ export default {
   
   .player-name
     font-size 30px
+  
+  .current-server
+    color #4E9CF6
     
 </style>
