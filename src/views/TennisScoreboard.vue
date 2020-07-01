@@ -18,6 +18,11 @@
     @add:record="addRecord"
     @change:server="changeServer"
   />
+
+  <Records 
+    :match="match"
+    :matchStatistic="matchStatistic"
+  />
   </div>
 </template>
 
@@ -26,6 +31,7 @@
 import MatchScore from '@/components/MatchScore.vue'
 import GameBoard from '@/components/GameBoard.vue'
 import PlayForm from '@/components/PlayForm.vue'
+import Records from '@/components/Records.vue'
 
 export default {
   name: 'TennisScoreboard',
@@ -33,6 +39,7 @@ export default {
     MatchScore,
     GameBoard,
     PlayForm,
+    Records,
   },
   data: function() {
     return {

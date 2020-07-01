@@ -12,13 +12,10 @@ Ace win a point
 Winner win a point
 Fault lose a point, opponent win a point
 
-
-
 Static. records.
 XXX win the point with winner. 15 - 0.
 XXX win the point with opponent unforced error. 30 - 0.
 XXX lose the point with double fault. 30 - 15.
-
 
 Interface 
 matchStatistic: {
@@ -29,7 +26,7 @@ matchStatistic: {
       currentServerId: '1',
       gameNumber: 1,
       pointStatics: { 
-        howtoWin: 'Un', 
+        howToWin: 'Un', 
         pointWinnerId: 'playerId', 
         points: [
           {
@@ -42,8 +39,6 @@ matchStatistic: {
           }
         ]
       },
-      
-      
     }
   ]
 }
