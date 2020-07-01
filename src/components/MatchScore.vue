@@ -28,10 +28,14 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+@import '../global-style/device-size.styl'
+
   .board
     display flex
     flex-direction column
     font-size 25px
+    @media pc-media
+      margin 0 300px
 
   .player 
     display flex

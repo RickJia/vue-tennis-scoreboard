@@ -67,4 +67,5 @@ export default {
     &:active
       box-shadow: 0px 3px #204c66
       transform: translateY(3px);
+
 </style>

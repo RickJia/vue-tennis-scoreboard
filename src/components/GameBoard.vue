@@ -154,6 +154,7 @@ export default {
       this.chanageServer();
       this.setNewSet();
       this.$emit('update:match', this.match);
+      console.log(this.match)
     },
     chanageServer() {
       const nextServer = this.match.find(player => player.id !== this.currentServerId);

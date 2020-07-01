@@ -2,8 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './global-style/style.css'
-import './global-style/icon.css'
+import './global-style/style.styl'
+import './global-style/icon.styl'
+import './global-style/device-size.styl'
 
 Vue.config.productionTip = false
 
