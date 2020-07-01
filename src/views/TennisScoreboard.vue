@@ -13,7 +13,6 @@
     :currentServerId="currentServerId"
     :match="match"
     :currentGame="currentGame"
-    @add:score="addScore"
     @update:match="updateMatch"
     @add:record="addRecord"
     @change:server="changeServer"
@@ -82,20 +81,14 @@ export default {
       this.match[1].name = players.name2;
       this.submitted = true;
     },
-    addScore(recordOfThePoint) {
-      console.log(recordOfThePoint);
-    },
     updateMatch(match) {
-      console.log(match);
       this.match = JSON.parse(JSON.stringify(match));
     },
     addRecord(record) {
       this.matchStatistic.records.push(record);
-      console.log(this.matchStatistic);
     },
     changeServer(nextServer) {
       this.currentServerId = nextServer.id;
-      console.log(this.currentServerId);
     }
   }
 }

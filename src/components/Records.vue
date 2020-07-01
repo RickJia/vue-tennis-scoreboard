@@ -29,6 +29,10 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+  .board
+    display flex
+    flex-direction: column-reverse;
+
   .player
     display flex
     margin-left 30px
