@@ -20,8 +20,7 @@ export default {
       const winOrLose = record.currentServerId === record.pointStatics.pointWinnerId ? 'win' : 'lose';
       const serverPoint = record.pointStatics.points.find(player => player.playerId === record.currentServerId).point;
       const opponentPoint = record.pointStatics.points.find(player => player.playerId !== record.currentServerId).point;
-      const msg = serverName + ' ' + winOrLose + ' ' +  statements + ' ' + record.pointStatics.howToWin + '. ' + serverPoint + ' - ' + opponentPoint;
-      return msg;
+      return `${serverName} ${winOrLose} ${statements} ${record.pointStatics.howToWin} ${serverPoint} - ${opponentPoint}`;
     }
   },
 }
