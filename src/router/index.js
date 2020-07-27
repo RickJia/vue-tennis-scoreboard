@@ -11,6 +11,11 @@ Vue.use(VueRouter)
     component: TennisScoreboard
   },
   {
+    path: '/:id',
+    name: 'TennisScoreboard',
+    component: TennisScoreboard
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

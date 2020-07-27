@@ -22,6 +22,7 @@
     :match="match"
     :matchStatistic="matchStatistic"
   />
+  <button @click="sendToServer()">Save match</button>
   </div>
 </template>
 
@@ -39,6 +40,21 @@ export default {
     GameBoard,
     PlayForm,
     Records,
+  },
+  mounted: function() {
+    this.$http.get('/api/courses').then(
+      (response) => {
+        this.match[0].name = response.data;
+        console.log(response);
+      }, 
+      (error) => {
+        console.log(error);
+      }
+    );
+    // this.$http.post('/quotes').then(
+    //   (res) => console.log(res)
+    // );
+
   },
   data: function() {
     return {
@@ -89,6 +105,21 @@ export default {
     },
     changeServer(nextServer) {
       this.currentServerId = nextServer.id;
+    },
+    sendToServer() {
+      const req = {match: this.match, matchStatistic: this.matchStatistic};
+      console.log(req);
+      this.$http.post('/api/matches', req
+        )
+        .then(
+          (response) => {
+            console.log(response);
+            console.log('save successful');
+          },
+          (error) => {
+            console.log(error);
+          }
+        )
     }
   }
 }

@@ -26,6 +26,9 @@
         <button class="lose-point" :disabled="currentServerId !== game.playerId"
           @click="updateScore('Unforced Error', game.playerId)">Unforced Error
         </button>
+        <button class="lose-point" :disabled="currentServerId !== game.playerId"
+          @click="updateScore('Opponent Winner', game.playerId)">Opponent Winner
+        </button>
       </div>
     </div>
   </div>
@@ -55,7 +58,8 @@ export default {
           break;
         }
         case 'Double Fault':
-        case 'Unforced Error': {      
+        case 'Unforced Error':
+        case 'Opponent Winner': {      
           const game = this.currentGame.find(game => game.playerId !== this.currentServerId);
           record = this.addPoint(game.playerId, howToWin);
           break;
@@ -154,7 +158,6 @@ export default {
       this.chanageServer();
       this.setNewSet();
       this.$emit('update:match', this.match);
-      console.log(this.match)
     },
     chanageServer() {
       const nextServer = this.match.find(player => player.id !== this.currentServerId);
