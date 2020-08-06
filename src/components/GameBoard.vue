@@ -39,13 +39,19 @@
 
 export default {
   name: 'GameBoard',
-  props: {
-    currentServerId: String,
-    currentGame: Array,
-    match: Array,
-  },
   created() {
     console.log(this.currentGame);
+  },
+  computed: {
+    currentGame() {
+      return this.$store.getters.currentGame;
+    },
+    currentServerId() {
+      return this.$store.getters.currentServerId;
+    },
+    match() {
+      return this.$store.getters.match;
+    }
   },
   methods: {
     updateScore(howToWin) {

@@ -20,9 +20,13 @@
 <script>
 export default {
   name: 'MatchSwefcore',
-  props: {
-    match: Array,
-    currentServerId: String
+  computed: {
+    match() {
+      return this.$store.getters.match;
+    },
+    currentServerId() {
+      return this.$store.getters.currentServerId;
+    }
   }
 }
 </script>

@@ -9,9 +9,13 @@
 <script>
 export default {
   name: 'MatchSwefcore',
-  props: {
-    match: Array,
-    matchStatistic: Object,
+  computed: {
+    match() {
+      return this.$store.getters.match;
+    },
+    matchStatistic() {
+      return this.$store.getters.matchStatistic;
+    }
   },
   methods: {
     getRecordStatement: function(record) {
