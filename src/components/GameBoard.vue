@@ -114,6 +114,7 @@ export default {
 
       if (winPointPlayer.point > 6 && notWinPointPlayer.point < 6) {
         winPointPlayer.point = 'Game';
+        console.log('te');
         this.chanageServer();
       }
 

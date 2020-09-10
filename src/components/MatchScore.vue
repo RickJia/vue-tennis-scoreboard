@@ -34,8 +34,9 @@ export default {
 <style scoped lang="stylus">
 @import '../global-style/device-size.styl'
 
+
   .board
-    display flex
+    display flex;
     flex-direction column
     font-size 25px
     @media pc-media
