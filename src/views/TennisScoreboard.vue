@@ -54,6 +54,7 @@ export default {
   },
   methods: {
     addPlayers(players) {
+      console.log('te');
       this.$store.commit('addPlayers', players);
     },
     updateMatch(match) {
