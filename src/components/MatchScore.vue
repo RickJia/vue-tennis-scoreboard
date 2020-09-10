@@ -36,7 +36,7 @@ export default {
 
 
   .board
-    display flex
+    display flex;
     flex-direction column
     font-size 25px
     @media pc-media
